@@ -9,15 +9,14 @@
 
 ### Informații generale
 ***
-În cadrul acestui proiect a fost implementat un simplu editor de text în linie de comandă ce conține toate funcționalitățile de bază.
+În cadrul acestui proiect a fost implementat un simplu editor de text în linie de comandă 
+ce conține toate funcționalitățile de bază.
 
 ### Conținutul proiectului
 ***
 Acest proiect conține 8 fișiere sursă și un Makefile:
-1. main.c: Fișierul de bază ce permite lansează funcția principală „executare”. 
-Odată cu aceasta, este pornită rularea programului. 
-De asemenea, este inițializat editorul reprezentat sub forma unei l
-iste dublu înlănțuite, șters la finalul execuției.
+1. main.c: Fișierul de bază ce lansează funcția principală „executare”. 
+Prin intermediul acesteia, programul devine operațional.
 2. interpretor_comenzi.h: Conține definițiile funcțiilor apelate direct 
 de către alte module.
 3. interpretor_comenzi.h: Conține toate funcțiile cerute în enunțul temei, 
@@ -39,7 +38,7 @@ textului și stivele de undo și redo, o structură pentru cursor și stivele de
 
 ### Tehnologii folosite
 ***
-În realizarea proiectului s-a folosit mediul de dezvoltare integrat open-source CodeBlocks, versiunea 20.03. gcc version 9.3.0 drept compilator împreună cu limbaj de programare C.
+În realizarea proiectului s-a folosit mediul de dezvoltare integrat open-source CodeBlocks, versiunea 20.03. Drept compilator, gcc version 9.3.0, iar C ca limbaj de programare.
 
 ### Instalare
 ***
@@ -47,4 +46,5 @@ După descărcarea arhivei editor.zip, se dezarhivează toate fișierele. Se fol
 
 ### Probleme
 ***
-Nu sunt cunoscute probleme la momentul actual. Programul a fost testat doar pe Windows 10, 64 biți și pe distribuția de Linux Ubuntu 20.04. Nu ezitați să semnalați orice neregulă găsită! :)
+Nu sunt cunoscute probleme la momentul actual. Programul a fost testat doar pe Windows 10, 64 biți și pe distribuția de Linux Ubuntu 20.04. Orice problemă poate fi semnalată printr-o cerere pe GitHub la adresa https://github.com/D3XT3RY0NuT/editor sau la adresa de e-mail ioan.cirstea@stud.acs.upb.ro
+Notă: Repertoriul GitHub a devenit public la data de 16 aprilie 2021.
