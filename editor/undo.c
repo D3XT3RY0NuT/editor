@@ -70,7 +70,7 @@ void undo(Editor *editor){
                     aux = eliminare_caracter(aux, *editor);
                 if (!editor->cursor.caracter)
                     editor->cursor.caracter = editor->undo->inceput_comanda;
-                //Stergere recursiva
+                //Stergere recursiva pana la terminarea tuturor comenzilor "i"
                 for (int i = 0; i < nr_argumente; i++)
                     free(comanda[i]);
                 free(comanda);
@@ -101,7 +101,7 @@ void undo(Editor *editor){
         if (!editor->cursor.caracter)
             editor->cursor.caracter = editor->undo->inceput_comanda;
     }
-    else if (!strcmp(comanda[0], "i")){ //Inversul unei stergeri dinamice
+    else if (!strcmp(comanda[0], "i")){ //Inversul unei stergeri dinamice (cu modificarea pozitiei cursorului)
         //Actualizare stiva redo
         char *comanda_redo = (char *) malloc(L_MAX);
         comanda_redo[0] = 'd';
@@ -120,7 +120,7 @@ void undo(Editor *editor){
         else
             inserare_text(editor->undo->inceput_comanda, comanda[1]);
     }
-    else if (!strcmp(comanda[0], "is")){ //Inversul unei stergeri statice
+    else if (!strcmp(comanda[0], "is")){ //Inversul unei stergeri statice (fara modificarea pozitiei cursorului
         //Actualizare stiva redo
         char *comanda_redo = (char *) malloc(L_MAX);
         comanda_redo[0] = 'd';
@@ -133,6 +133,7 @@ void undo(Editor *editor){
         comanda_redo[l + 3] = '\0';
         inserare_stiva(&(editor->redo), editor->undo->inceput_comanda, comanda_redo);
         free(aux);
+        //Executia comenzii
         inserare_text(editor->undo->inceput_comanda, comanda[1]);
     }
     else if (!strcmp(comanda[0], "ir")){ //Inversul unei stergeri recursive
@@ -154,7 +155,7 @@ void undo(Editor *editor){
             free(aux);
             //Executia comenzii
             inserare_text(editor->undo->inceput_comanda, comanda[1]);
-            //Inserare recursiva
+            //Inserare recursiva pana la terminarea tuturor comenzilor "ir"
             for (int i = 0; i < nr_argumente; i++)
                 free(comanda[i]);
             free(comanda);
@@ -181,7 +182,7 @@ void undo(Editor *editor){
         //Executia comenzii
         inserare_text(editor->undo->inceput_comanda, comanda[1]);
     }
-    else if (!strcmp(comanda[0], "r")){
+    else if (!strcmp(comanda[0], "r")){ //Inversul unei inlocuire simple
         int l1 = strlen(comanda[1]);
         int l2 = strlen(comanda[2]);
         //Actualizare stiva redo
@@ -198,7 +199,7 @@ void undo(Editor *editor){
             aux = eliminare_caracter(aux, *editor);
         inserare_text(editor->undo->inceput_comanda, comanda[2]);
     }
-    else if (!strcmp(comanda[0], "rr")){
+    else if (!strcmp(comanda[0], "rr")){ //Inversul unei inlocuiri recursive
         int nr_argumente_urm = 0;
         char **comanda_urm = interpretare_comanda(editor->undo->urm->comanda, &nr_argumente_urm);
         while(!strcmp(comanda_urm[0], "rr")){
@@ -218,7 +219,7 @@ void undo(Editor *editor){
             for (int i = 0; i < l1; i++)
                 aux = eliminare_caracter(aux, *editor);
             inserare_text(editor->undo->inceput_comanda, comanda[2]);
-            //Inlocuirea recursiva
+            //Inlocuirea recursiva pana la terminarea tuturor comenzilor "rr"
             eliminare_stiva(&(editor->undo));
             for (int i = 0; i < nr_argumente; i++)
                 free(comanda[i]);
@@ -244,7 +245,7 @@ void undo(Editor *editor){
             aux = eliminare_caracter(aux, *editor);
         inserare_text(editor->undo->inceput_comanda, comanda[2]);
     }
-    else if (!strcmp(comanda[0], "m")){
+    else if (!strcmp(comanda[0], "m")){ //Inversul unei deplasari de cursor
         //Crearea comenzii redo
         editor->cursor.caracter = editor->undo->inceput_comanda;
         pozitie_cursor(editor);
@@ -266,7 +267,7 @@ void undo(Editor *editor){
         //Actualizare stiva redo
         inserare_stiva(&(editor->redo), editor->cursor.caracter, comanda_redo);
     }
-    else{
+    else{ // Comanda NULL, corespunzatoare unei comenzi fara efect, ex: inlocuirea unui cuvant inexistent
         char *comanda_redo = (char *) malloc(L_MAX);
         comanda_redo[0] = 'n';
         comanda_redo[1] = '\0';
@@ -364,7 +365,7 @@ void redo(Editor *editor){
         if (aux)
             editor->cursor.caracter = aux;
     }
-    else if (!strcmp(comanda[0], "r")){
+    else if (!strcmp(comanda[0], "r")){ //Inlocuire
         int l1 = strlen(comanda[1]);
         int l2 = strlen(comanda[2]);
         //Actualizare stiva undo
@@ -381,7 +382,7 @@ void redo(Editor *editor){
             aux = eliminare_caracter(aux, *editor);
         inserare_text(editor->redo->inceput_comanda, comanda[2]);
     }
-    else if (!strcmp(comanda[0], "rr")){
+    else if (!strcmp(comanda[0], "rr")){ //Inlocuire recursiva
         if (editor->redo->urm){
             int nr_argumente_urm = 0;
             char **comanda_urm = interpretare_comanda(editor->redo->urm->comanda, &nr_argumente_urm);
@@ -433,7 +434,7 @@ void redo(Editor *editor){
             aux = eliminare_caracter(aux, *editor);
         inserare_text(editor->redo->inceput_comanda, comanda[2]);
     }
-    else if (!strcmp(comanda[0], "m")){
+    else if (!strcmp(comanda[0], "m")){ //Deplasarea cursorului
         //Crearea comenzii undo
         editor->cursor.caracter = editor->redo->inceput_comanda;
         pozitie_cursor(editor);
@@ -455,7 +456,7 @@ void redo(Editor *editor){
         //Actualizare stiva undo
         inserare_stiva(&(editor->undo), editor->cursor.caracter, comanda_undo);
     }
-    else{
+    else{ //Comanda NULL, fara efect. Ex: inlocuirea unui cuvant inexistent
         char *comanda_undo = (char *) malloc(L_MAX);
         comanda_undo[0] = 'n';
         comanda_undo[1] = '\0';

@@ -14,7 +14,7 @@ NodText *creare_caracter(){
     return caracter;
 }
 
-//Creeaza un editor vid sub forma de lista
+//Creeaza un editor vid sub forma de lista dublu inlantuita
 Editor *initializare_editor(){
     Editor *editor = (Editor *) malloc(sizeof(Editor));
     editor->inceput = creare_caracter();
@@ -27,6 +27,7 @@ Editor *initializare_editor(){
     return editor;
 }
 
+//Elibereaza intreaga memorie continuta de editor
 void inchidere_editor(Editor *editor){
     NodText *aux;
     while(editor->inceput){
@@ -72,7 +73,7 @@ void imprimare(FILE *fisier, Editor editor){
     }
 }
 
-//Insereaza un caracter si il returneaza
+//Inseretia un caracter si il returneaza
 NodText *inserare_caracter(NodText *caracter_curent, char c){
     NodText *aux = creare_caracter();
     aux->c = c;
@@ -111,7 +112,7 @@ NodText *eliminare_caracter(NodText *caracter, Editor editor){
     return NULL;
 }
 
-//Determinarea caracterului in functie de coordonatele sale in cadrul unei linii
+//Determinarea celui de al n-lea caracter pornind de la nodul de text dat
 NodText *cautare_caracter(NodText *caracter, int indice_caracter){
     while(indice_caracter--)
         caracter = caracter->urm;
@@ -193,6 +194,7 @@ int convertire_sir_numar(char *sir){
     return rez;
 }
 
+//Functie ce transforma un numar in sirul de caractere corespunzator.
 char *convertire_numar_sir(int nr){
     char cifre[10];
     int nr_cifre = 0;

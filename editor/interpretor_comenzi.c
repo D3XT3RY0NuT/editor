@@ -27,8 +27,7 @@ void mod_citire(char *sir, Editor *editor){
     char *comanda = (char *) malloc(L_MAX);
     comanda[0] = 'u';
     comanda[1] = ' ';
-    for (int i = 0; i < l; i++)
-        comanda[i + 2] = aux[i];
+    strcpy(comanda + 2, aux);
     comanda[l + 2] = '\n';
     comanda[l + 3] = '\0';
     inserare_stiva(&(editor->undo), editor->cursor.caracter, comanda);
@@ -39,8 +38,9 @@ void mod_citire(char *sir, Editor *editor){
 }
 
 char **interpretare_comanda(char *sir, int *nr_argumente){
-    char **comanda = (char **) malloc(4 * sizeof(char *)); //O comanda contine numele sau si maxim trei argumente
+    //O comanda contine numele sau si maxim trei argumente
     //Primul argument al comenzii va fi intotdeauna numele sau
+    char **comanda = (char **) malloc(4 * sizeof(char *));
     char *aux = (char *) malloc(L_MAX);
     int reper = 0; // Lungimea lui aux
     int ghilimele = 0; //Daca s-a intalnit o pereche de ghilimele, se asteapta si intalnirea celei de a doua
@@ -79,7 +79,7 @@ char **interpretare_comanda(char *sir, int *nr_argumente){
     return comanda;
 }
 
-//Functia de backspace
+//Functia de revenire (backspace)
 void revenire(Editor *editor){
     if (editor->cursor.caracter->c < 32)
         editor->cursor.caracter = editor->cursor.caracter->prec;
@@ -89,8 +89,7 @@ void revenire(Editor *editor){
     comanda_undo[1] = 'b';
     comanda_undo[2] = ' ';
     comanda_undo[3] = editor->cursor.caracter->c;
-    comanda_undo[4] = '\n';
-    comanda_undo[5] = '\0';
+    comanda_undo[4] = '\0';
     inserare_stiva(&(editor->undo), editor->cursor.caracter->prec, comanda_undo);
     //Comanda de revenire
     editor->cursor.caracter = eliminare_caracter(editor->cursor.caracter, *editor);
@@ -180,6 +179,7 @@ void stergere(Editor *editor, char *argument, int nr_argumente){
     int nr_caractere = 1;
     if (nr_argumente == 2)
         nr_caractere = convertire_sir_numar(argument);
+    //Actualizare stiva undo
     char *comanda_undo = malloc(L_MAX);
     comanda_undo[0] = 'i';
     comanda_undo[1] = ' ';
@@ -187,7 +187,6 @@ void stergere(Editor *editor, char *argument, int nr_argumente){
     generare_subsir(comanda_undo + 3, editor->cursor.caracter->urm, nr_caractere);
     comanda_undo[nr_caractere + 3] = '"';
     comanda_undo[nr_caractere + 4] = '\0';
-    //Actualizare stiva undo
     inserare_stiva(&(editor->undo), editor->cursor.caracter, comanda_undo);
     //Executia comenzii de stergere
     NodText *aux = editor->cursor.caracter->urm;
@@ -197,7 +196,7 @@ void stergere(Editor *editor, char *argument, int nr_argumente){
 
 //Functia de inlocuire a primei aparitii a cuvantului (replace)
 void inlocuire_cuvant(Editor *editor, char **argumente){
-    int gasit = 0;
+    int gasit = 0; //Marcheaza daca a fost gasit cel putin un cuvant pentru a fi inlocuit
     int l1 = strlen(argumente[0]);
     int l2 = strlen(argumente[1]);
     char *subsir = (char *) malloc(L_MAX);
