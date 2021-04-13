@@ -73,7 +73,7 @@ void imprimare(FILE *fisier, Editor editor){
     }
 }
 
-//Inseretia un caracter si il returneaza
+//Insereaza un caracter si il returneaza
 NodText *inserare_caracter(NodText *caracter_curent, char c){
     NodText *aux = creare_caracter();
     aux->c = c;
