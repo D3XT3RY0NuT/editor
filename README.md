@@ -51,4 +51,4 @@ După descărcarea arhivei editor.zip, se dezarhivează toate fișierele. Se fol
 ***
 Nu sunt cunoscute probleme la momentul actual. Programul a fost testat doar pe Windows 10, 64 biți și pe distribuția de Linux Ubuntu 20.04. Orice problemă poate fi semnalată printr-o cerere pe GitHub la adresa https://github.com/D3XT3RY0NuT/editor.
 ***
-Notă: Repertoriul GitHub a devenit public la data de 16 aprilie 2021.
+Notă: Depozitul GitHub a devenit public la data de 16 aprilie 2021.
