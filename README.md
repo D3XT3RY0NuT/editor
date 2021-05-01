@@ -19,7 +19,7 @@ Acest proiect conține 8 fișiere sursă și un Makefile:
 Prin intermediul acesteia, programul devine operațional.
 2. **interpretor_comenzi.h**: Conține definițiile funcțiilor apelate direct 
 de către alte module.
-3. **interpretor_comenzi.h**: Conține toate funcțiile cerute în enunțul temei, 
+3. **interpretor_comenzi.c**: Conține toate funcțiile cerute în enunțul temei, 
 precum și alte funcții ce ajută la interpretarea comenzilor din modul de inserare
 sau de comandă.
 4. **undo.h**: Include definițiile principalelor funcții ce operează cu stivele
@@ -38,7 +38,10 @@ textului și stivele de undo și redo, o structură pentru cursor și stivele de
 
 ### Tehnologii folosite
 ***
-În realizarea proiectului s-a folosit mediul de dezvoltare integrat open-source CodeBlocks, versiunea 20.03. Drept compilator, gcc version 9.3.0, iar C ca limbaj de programare.
+Mediu integrat de dezvoltare: CodeBlocks, ver 20.03.
+Compilator: gcc, ver 9.3.0.
+Limbaj de programare: C.
+Sistem de versionare: git, ver 2.25.1, împreună cu serviciul web de stocare GitHub
 
 ### Instalare
 ***
@@ -46,6 +49,6 @@ După descărcarea arhivei editor.zip, se dezarhivează toate fișierele. Se fol
 
 ### Probleme
 ***
-Nu sunt cunoscute probleme la momentul actual. Programul a fost testat doar pe Windows 10, 64 biți și pe distribuția de Linux Ubuntu 20.04. Orice problemă poate fi semnalată printr-o cerere pe GitHub la adresa https://github.com/D3XT3RY0NuT/editor sau la adresa de e-mail ioan.cirstea@stud.acs.upb.ro.
+Nu sunt cunoscute probleme la momentul actual. Programul a fost testat doar pe Windows 10, 64 biți și pe distribuția de Linux Ubuntu 20.04. Orice problemă poate fi semnalată printr-o cerere pe GitHub la adresa https://github.com/D3XT3RY0NuT/editor.
 ***
 Notă: Repertoriul GitHub a devenit public la data de 16 aprilie 2021.
