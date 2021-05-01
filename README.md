@@ -38,10 +38,10 @@ textului și stivele de undo și redo, o structură pentru cursor și stivele de
 
 ### Tehnologii folosite
 ***
-Mediu integrat de dezvoltare: CodeBlocks, ver 20.03.
-Compilator: gcc, ver 9.3.0.
-Limbaj de programare: C.
-Sistem de versionare: git, ver 2.25.1, împreună cu serviciul web de stocare GitHub
+Mediu integrat de dezvoltare: CodeBlocks, ver 20.03.   
+Compilator: gcc, ver 9.3.0.   
+Limbaj de programare: C.   
+Sistem de versionare: git, ver 2.25.1, împreună cu serviciul web de stocare GitHub   
 
 ### Instalare
 ***
